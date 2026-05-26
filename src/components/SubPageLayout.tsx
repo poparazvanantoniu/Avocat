@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -17,14 +18,15 @@ interface Props {
   subtitle: string;
   intro: string;
   sections: Section[];
+  showPortrait?: boolean;
 }
 
-export default function SubPageLayout({ eyebrow, title, subtitle, intro, sections }: Props) {
+export default function SubPageLayout({ eyebrow, title, subtitle, intro, sections, showPortrait }: Props) {
   return (
     <>
       <Navbar />
       <main>
-        <SubPageHero eyebrow={eyebrow} title={title} subtitle={subtitle} />
+        <SubPageHero eyebrow={eyebrow} title={title} subtitle={subtitle} showPortrait={showPortrait} />
         <SubPageContent intro={intro} sections={sections} />
       </main>
       <Footer />
@@ -32,7 +34,7 @@ export default function SubPageLayout({ eyebrow, title, subtitle, intro, section
   );
 }
 
-function SubPageHero({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle: string }) {
+function SubPageHero({ eyebrow, title, subtitle, showPortrait }: { eyebrow: string; title: string; subtitle: string; showPortrait?: boolean }) {
   return (
     <section
       className="relative pt-36 pb-20 px-6 overflow-hidden"
@@ -45,6 +47,33 @@ function SubPageHero({ eyebrow, title, subtitle }: { eyebrow: string; title: str
           background: "radial-gradient(ellipse 80% 60% at 20% 80%, rgba(90,143,120,0.08) 0%, transparent 60%)",
         }}
       />
+
+      {/* Portrait for despre-avocat page */}
+      {showPortrait && (
+        <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block pointer-events-none overflow-hidden">
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to right, #0F2019 0%, transparent 30%, transparent 70%, #0F2019 100%)",
+              zIndex: 1,
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to bottom, #0F2019 0%, transparent 15%, transparent 75%, #0F2019 100%)",
+              zIndex: 1,
+            }}
+          />
+          <Image
+            src="/avocat.jpg"
+            alt="Oancea Emil Teodor"
+            fill
+            className="object-cover object-top opacity-25"
+            sizes="50vw"
+          />
+        </div>
+      )}
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Back link */}

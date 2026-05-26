@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function About() {
   const ref = useRef<HTMLDivElement>(null);
@@ -16,8 +17,77 @@ export default function About() {
     >
       <div className="max-w-5xl mx-auto">
         <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-          {/* Left: text */}
-          <div>
+          {/* Left: portrait */}
+          <motion.div
+            initial={{ opacity: 0, x: -32 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
+            className="relative order-2 lg:order-1"
+          >
+            {/* Double-bezel frame */}
+            <div
+              className="relative rounded-[2rem] p-2"
+              style={{
+                background: "rgba(212,232,222,0.06)",
+                border: "1px solid rgba(212,232,222,0.14)",
+              }}
+            >
+              <div
+                className="relative rounded-[1.5rem] overflow-hidden"
+                style={{
+                  boxShadow: "inset 0 1px 1px rgba(255,255,255,0.06), 0 32px 64px rgba(0,0,0,0.5)",
+                  aspectRatio: "4/5",
+                }}
+              >
+                <Image
+                  src="/avocat.jpg"
+                  alt="Oancea Emil Teodor — Avocat Penalist"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-top"
+                  priority
+                />
+                {/* Subtle bottom gradient overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: "linear-gradient(to top, rgba(11,26,18,0.6) 0%, transparent 50%)",
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Floating credential badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.5, ease: [0.32, 0.72, 0, 1] }}
+              className="absolute -bottom-4 -right-4 lg:-right-8"
+            >
+              <div
+                className="px-5 py-3.5 rounded-2xl"
+                style={{
+                  background: "rgba(15,32,25,0.92)",
+                  backdropFilter: "blur(20px)",
+                  border: "1px solid rgba(212,232,222,0.12)",
+                  boxShadow: "0 16px 40px rgba(0,0,0,0.4)",
+                }}
+              >
+                <p
+                  className="text-sm font-semibold mb-0.5"
+                  style={{ color: "#D4E8DE", fontFamily: '"Times New Roman", Times, serif' }}
+                >
+                  Oancea Emil Teodor
+                </p>
+                <p className="text-[11px] uppercase tracking-wider" style={{ color: "rgba(212,232,222,0.4)" }}>
+                  Avocat · Baroul Cluj
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right: text */}
+          <div className="order-1 lg:order-2">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -62,7 +132,7 @@ export default function About() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.3, ease: [0.32, 0.72, 0, 1] }}
               className="text-base leading-relaxed mb-8"
-              style={{ color: "rgba(255,255,255,0.45)" }}
+              style={{ color: "rgba(255,255,255,0.40)" }}
             >
               Abordez fiecare dosar cu atenție la detalii, comunicare transparentă
               și angajamentul de a obține cel mai bun rezultat posibil pentru clientul meu.
@@ -72,6 +142,7 @@ export default function About() {
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.4, ease: [0.32, 0.72, 0, 1] }}
+              className="flex flex-col sm:flex-row gap-3"
             >
               <Link
                 href="/despre-avocat"
@@ -85,75 +156,19 @@ export default function About() {
                 Află mai multe
                 <span className="text-xs opacity-60">→</span>
               </Link>
-            </motion.div>
-          </div>
-
-          {/* Right: decorative card */}
-          <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.32, 0.72, 0, 1] }}
-            className="relative"
-          >
-            <div
-              className="relative rounded-[2rem] p-2"
-              style={{
-                background: "rgba(212,232,222,0.06)",
-                border: "1px solid rgba(212,232,222,0.12)",
-              }}
-            >
-              <div
-                className="rounded-[1.5rem] overflow-hidden aspect-[4/5] flex flex-col justify-end"
+              <a
+                href="tel:+40745127656"
+                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105"
                 style={{
-                  background: "linear-gradient(160deg, #152E21 0%, #0B1A12 100%)",
-                  boxShadow: "inset 0 1px 1px rgba(255,255,255,0.06)",
+                  background: "transparent",
+                  color: "rgba(212,232,222,0.5)",
+                  border: "1px solid rgba(212,232,222,0.1)",
                 }}
               >
-                {/* Decorative gradient */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: "radial-gradient(ellipse 70% 50% at 40% 30%, rgba(90,143,120,0.12) 0%, transparent 70%)",
-                  }}
-                />
-
-                {/* Bottom info card */}
-                <div
-                  className="relative m-4 p-5 rounded-2xl"
-                  style={{
-                    background: "rgba(15,32,25,0.8)",
-                    backdropFilter: "blur(20px)",
-                    border: "1px solid rgba(212,232,222,0.1)",
-                  }}
-                >
-                  <p
-                    className="text-sm font-semibold mb-1"
-                    style={{ color: "#D4E8DE", fontFamily: '"Times New Roman", Times, serif' }}
-                  >
-                    Oancea Emil Teodor
-                  </p>
-                  <p className="text-xs mb-3" style={{ color: "rgba(212,232,222,0.45)" }}>
-                    Avocat Penalist · Baroul Cluj
-                  </p>
-                  <div className="flex gap-4">
-                    {[
-                      { v: "Baroul Cluj", l: "Înregistrat" },
-                      { v: "Penalist", l: "Specializare" },
-                    ].map((item) => (
-                      <div key={item.l}>
-                        <div className="text-xs font-semibold mb-0.5" style={{ color: "#D4E8DE" }}>
-                          {item.v}
-                        </div>
-                        <div className="text-[10px] uppercase tracking-wider" style={{ color: "rgba(212,232,222,0.35)" }}>
-                          {item.l}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+                +40 745 127 656
+              </a>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

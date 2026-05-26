@@ -14,6 +14,7 @@ export default function DespreAvocat() {
       title="Oancea Emil Teodor"
       subtitle="Avocat penalist înscris în Baroul Cluj."
       intro="Cred că fiecare persoană, indiferent de circumstanțe, merită o apărare juridică riguroasă și corectă. Această convingere mă ghidează în fiecare dosar pe care îl preiau."
+      showPortrait
       sections={[
         {
           title: "Formare profesională",
