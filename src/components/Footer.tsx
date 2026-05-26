@@ -1,52 +1,80 @@
 "use client";
 
+import Link from "next/link";
+
+const practiceLinks = [
+  { label: "Drept Penal", href: "/drept-penal" },
+  { label: "Drept Civil", href: "/drept-civil" },
+  { label: "Drept Administrativ", href: "/drept-administrativ" },
+  { label: "Drept Fiscal", href: "/drept-fiscal" },
+  { label: "Drept Comercial", href: "/drept-comercial" },
+];
+
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const scrollTo = (id: string) => {
+    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <footer
-      className="py-12 px-6 border-t"
+      className="px-6 py-16"
       style={{
-        background: "var(--navy)",
-        borderColor: "rgba(255,255,255,0.06)",
+        background: "#0B1A12",
+        borderTop: "1px solid rgba(212,232,222,0.08)",
       }}
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <div
-                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
-                style={{ background: "var(--gold)" }}
+                className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold tracking-wide"
+                style={{
+                  background: "rgba(212,232,222,0.08)",
+                  color: "#D4E8DE",
+                  border: "1px solid rgba(212,232,222,0.15)",
+                  fontFamily: '"Times New Roman", Times, serif',
+                }}
               >
-                AI
+                OET
               </div>
-              <span
-                className="font-bold text-white"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Alexandru Ionescu
-              </span>
+              <div>
+                <div
+                  className="font-bold text-sm"
+                  style={{ color: "#D4E8DE", fontFamily: '"Times New Roman", Times, serif' }}
+                >
+                  Oancea Emil Teodor
+                </div>
+                <div className="text-[10px] uppercase tracking-wider mt-0.5" style={{ color: "rgba(212,232,222,0.35)" }}>
+                  Avocat · Baroul Cluj
+                </div>
+              </div>
             </div>
-            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
-              Cabinet de avocatură cu experiență de 20+ ani, specializat în apărarea drepturilor
-              persoanelor fizice și juridice.
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(212,232,222,0.35)" }}>
+              Cabinet de avocatură specializat în drept penal,
+              cu sediul în Cluj-Napoca.
             </p>
           </div>
 
-          {/* Services */}
+          {/* Practice areas */}
           <div>
-            <div
-              className="text-[10px] uppercase tracking-[0.2em] mb-4 font-medium"
-              style={{ color: "var(--gold)" }}
+            <h4
+              className="text-[10px] uppercase tracking-[0.25em] mb-4 font-medium"
+              style={{ color: "rgba(212,232,222,0.35)" }}
             >
-              Servicii
-            </div>
-            <ul className="space-y-2">
-              {["Drept Civil", "Drept Comercial", "Drept Penal", "Drept Imobiliar", "Dreptul Muncii"].map((s) => (
-                <li key={s} className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  {s}
+              Arii de practică
+            </h4>
+            <ul className="flex flex-col gap-2">
+              {practiceLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm transition-colors duration-200 hover:opacity-80"
+                    style={{ color: "rgba(212,232,222,0.55)" }}
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -54,49 +82,55 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <div
-              className="text-[10px] uppercase tracking-[0.2em] mb-4 font-medium"
-              style={{ color: "var(--gold)" }}
+            <h4
+              className="text-[10px] uppercase tracking-[0.25em] mb-4 font-medium"
+              style={{ color: "rgba(212,232,222,0.35)" }}
             >
-              Contact Rapid
+              Contact
+            </h4>
+            <div className="flex flex-col gap-3">
+              <a
+                href="tel:+40745127656"
+                className="text-sm transition-colors duration-200 hover:opacity-80"
+                style={{ color: "rgba(212,232,222,0.55)" }}
+              >
+                +40 745 127 656
+              </a>
+              <p className="text-sm" style={{ color: "rgba(212,232,222,0.55)" }}>
+                Strada Eroilor Nr. 10
+                <br />
+                Cluj-Napoca
+              </p>
+              <button
+                onClick={() => scrollTo("#contact")}
+                className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-medium transition-all duration-300 hover:scale-105"
+                style={{
+                  background: "rgba(212,232,222,0.08)",
+                  color: "#D4E8DE",
+                  border: "1px solid rgba(212,232,222,0.12)",
+                }}
+              >
+                Solicitați consultație
+              </button>
             </div>
-            <ul className="space-y-2">
-              <li className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-                📞 +40 721 234 567
-              </li>
-              <li className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-                ✉️ contact@ionescu-avocat.ro
-              </li>
-              <li className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-                📍 Str. Aviatorilor 12, București
-              </li>
-              <li className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-                🕐 Lun–Vin: 09:00–18:00
-              </li>
-            </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
         <div
-          className="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3"
-          style={{ borderColor: "rgba(255,255,255,0.06)" }}
+          className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3"
+          style={{ borderTop: "1px solid rgba(212,232,222,0.07)" }}
         >
-          <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.25)" }}>
-            © {currentYear} Cabinet Avocat Alexandru Ionescu. Toate drepturile rezervate.
+          <p className="text-[11px]" style={{ color: "rgba(212,232,222,0.25)" }}>
+            © {new Date().getFullYear()} Oancea Emil Teodor — Cabinet de Avocatură. Toate drepturile rezervate.
           </p>
-          <div className="flex items-center gap-4">
-            {["Politică confidențialitate", "Termeni servicii"].map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="text-[11px] transition-colors duration-200 hover:opacity-70"
-                style={{ color: "rgba(255,255,255,0.25)" }}
-              >
-                {link}
-              </a>
-            ))}
-          </div>
+          <Link
+            href="/despre-avocat"
+            className="text-[11px] transition-colors duration-200 hover:opacity-70"
+            style={{ color: "rgba(212,232,222,0.25)" }}
+          >
+            Despre avocat
+          </Link>
         </div>
       </div>
     </footer>
