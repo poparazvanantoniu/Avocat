@@ -2,7 +2,17 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const C = {
+  bg:       "#EDEAE3",
+  bgAlt:    "#E5E1D8",
+  ink:      "#111111",
+  inkMuted: "#6B6460",
+  rule:     "#CCC8C0",
+  navy:     "#1A1928",
+  navyText: "#EDEAE3",
+} as const;
 
 const testimonials = [
   {
@@ -10,7 +20,6 @@ const testimonials = [
     name: "Andrei Moldovan",
     role: "Antreprenor, Cluj-Napoca",
     text: "Am apelat la dl. Oancea într-un dosar penal extrem de complicat. Profesionalismul, calmul și cunoașterea profundă a legii m-au convins că sunt în mâini sigure. Rezultatul a fost achitarea completă.",
-    stars: 5,
     initials: "AM",
   },
   {
@@ -18,7 +27,6 @@ const testimonials = [
     name: "Elena Popa",
     role: "Director financiar",
     text: "Într-un moment de maximă presiune, dl. avocat Oancea a gestionat totul cu discreție și eficiență. Mi-a explicat fiecare pas al procesului și a obținut soluția pe care o speram.",
-    stars: 5,
     initials: "EP",
   },
   {
@@ -26,7 +34,6 @@ const testimonials = [
     name: "Bogdan Iliescu",
     role: "Administrator de firmă",
     text: "Recomand cu toată încrederea. A rezolvat un dosar de evaziune fiscală care părea imposibil de câștigat. Argumentele juridice au fost impecabile, iar conduita față de client — exemplară.",
-    stars: 5,
     initials: "BI",
   },
   {
@@ -34,7 +41,6 @@ const testimonials = [
     name: "Mihaela Drăghici",
     role: "Medic specialist",
     text: "Dl. Oancea mi-a apărat onoarea și cariera profesională. A fost disponibil în orice moment, iar cunoașterea legii penale a fost impresionantă. Un avocat care luptă cu adevărat pentru tine.",
-    stars: 5,
     initials: "MD",
   },
   {
@@ -42,7 +48,6 @@ const testimonials = [
     name: "Răzvan Costea",
     role: "Inginer constructor",
     text: "Am trecut printr-o situație dificilă și nu știam unde să mă îndrept. Dl. Oancea m-a ghidat cu răbdare, mi-a explicat drepturile și a obținut clasarea dosarului. Îi sunt profund recunoscător.",
-    stars: 5,
     initials: "RC",
   },
   {
@@ -50,7 +55,6 @@ const testimonials = [
     name: "Cristina Varga",
     role: "Profesoară universitară",
     text: "Discreție absolută, strategie clară și rezultate concrete. Dl. avocat Oancea a demonstrat că experiența și dedicarea fac diferența în sala de judecată. Un profesionist autentic.",
-    stars: 5,
     initials: "CV",
   },
 ];
@@ -79,95 +83,155 @@ export default function StaggerTestimonials() {
   };
 
   return (
-    <div ref={ref} className="relative max-w-4xl mx-auto px-4">
+    <div ref={ref} style={{ position: "relative", maxWidth: 800, margin: "0 auto" }}>
+      {/* Stagger cards behind */}
+      {isInView && [2, 1].map((offset) => (
+        <motion.div
+          key={offset}
+          initial={{ opacity: 0, y: offset * 10, scale: 1 - offset * 0.03 }}
+          animate={{ opacity: 1 - offset * 0.35, y: offset * 10, scale: 1 - offset * 0.03 }}
+          transition={{ duration: 0.6, delay: offset * 0.08, ease: [0.32, 0.72, 0, 1] }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: C.bg,
+            border: `1px solid ${C.rule}`,
+            transformOrigin: "bottom center",
+            marginLeft: offset * 10,
+            marginRight: offset * 10,
+            zIndex: -offset,
+          }}
+        />
+      ))}
+
       {/* Main card */}
-      <div className="relative overflow-hidden rounded-[2rem] p-1" style={{
-        background: "rgba(15,32,25,0.06)",
-        border: "1px solid rgba(43,74,60,0.15)",
-      }}>
-        <div className="rounded-[1.625rem] overflow-hidden" style={{
-          background: "#FDFBF7",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)",
-        }}>
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.id}
-              initial={false}
-              animate={{
-                opacity: i === active ? 1 : 0,
-                x: i === active ? 0 : i < active ? -40 : 40,
-                position: i === active ? "relative" : "absolute",
+      <div
+        style={{
+          background: C.bg,
+          border: `1px solid ${C.rule}`,
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {testimonials.map((t, i) => (
+          <motion.div
+            key={t.id}
+            initial={false}
+            animate={{
+              opacity: i === active ? 1 : 0,
+              x: i === active ? 0 : i < active ? -32 : 32,
+            }}
+            transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+            style={{
+              position: i === active ? "relative" : "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              padding: "clamp(32px, 5vw, 56px)",
+            }}
+          >
+            {/* Opening mark */}
+            <p
+              style={{
+                fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                fontSize: 72,
+                lineHeight: 0.7,
+                color: C.rule,
+                marginBottom: 20,
+                fontWeight: 300,
               }}
-              transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-              className="w-full p-8 md:p-12"
-              style={{ top: 0, left: 0 }}
             >
-              <div className="flex flex-col gap-6">
-                {/* Quote icon */}
+              &ldquo;
+            </p>
+
+            {/* Quote */}
+            <p
+              style={{
+                fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                fontSize: "clamp(19px, 2vw, 24px)",
+                fontWeight: 400,
+                fontStyle: "italic",
+                lineHeight: 1.55,
+                color: C.ink,
+                marginBottom: 32,
+              }}
+            >
+              {t.text}
+            </p>
+
+            {/* Author */}
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  background: C.navy,
+                  color: C.navyText,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 11,
+                  letterSpacing: "0.08em",
+                  fontFamily: '"Times New Roman", Times, serif',
+                  flexShrink: 0,
+                }}
+              >
+                {t.initials}
+              </div>
+              <div>
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{ background: "rgba(27,58,45,0.08)" }}
+                  style={{
+                    fontSize: 13,
+                    fontFamily: '"Times New Roman", Times, serif',
+                    color: C.ink,
+                    letterSpacing: "0.02em",
+                  }}
                 >
-                  <Quote size={18} style={{ color: "#1B3A2D" }} />
+                  {t.name}
                 </div>
-
-                {/* Stars */}
-                <div className="flex gap-1">
-                  {Array.from({ length: t.stars }).map((_, j) => (
-                    <Star
-                      key={j}
-                      size={14}
-                      fill="#6B4226"
-                      stroke="none"
-                      style={{ color: "#6B4226" }}
-                    />
-                  ))}
-                </div>
-
-                {/* Text */}
-                <p
-                  className="text-lg md:text-xl leading-relaxed"
-                  style={{ color: "#1A1714", fontFamily: '"Times New Roman", Times, serif', fontStyle: "italic" }}
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: C.inkMuted,
+                    fontFamily: '"Times New Roman", Times, serif',
+                    marginTop: 2,
+                  }}
                 >
-                  &ldquo;{t.text}&rdquo;
-                </p>
-
-                {/* Author */}
-                <div className="flex items-center gap-4 pt-2">
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-white shrink-0"
-                    style={{ background: "#1B3A2D" }}
-                  >
-                    {t.initials}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-sm" style={{ color: "#1A1714" }}>
-                      {t.name}
-                    </div>
-                    <div className="text-xs mt-0.5" style={{ color: "#68635E" }}>
-                      {t.role}
-                    </div>
-                  </div>
+                  {t.role}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       {/* Controls */}
-      <div className="flex items-center justify-between mt-6 px-2">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginTop: 20,
+          paddingTop: 20,
+          borderTop: `1px solid ${C.rule}`,
+        }}
+      >
         {/* Dots */}
-        <div className="flex gap-2">
+        <div style={{ display: "flex", gap: 8 }}>
           {testimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => { setAutoplay(false); setActive(i); }}
-              className="transition-all duration-300 rounded-full"
               style={{
                 width: i === active ? 24 : 8,
                 height: 8,
-                background: i === active ? "#1B3A2D" : "rgba(27,58,45,0.2)",
+                background: i === active ? C.navy : C.rule,
+                border: "none",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                padding: 0,
               }}
               aria-label={`Testimonial ${i + 1}`}
             />
@@ -175,55 +239,49 @@ export default function StaggerTestimonials() {
         </div>
 
         {/* Arrows */}
-        <div className="flex gap-2">
+        <div style={{ display: "flex", gap: 8 }}>
           <button
             onClick={() => handleNav("prev")}
-            className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
             style={{
-              background: "rgba(27,58,45,0.08)",
-              border: "1px solid rgba(27,58,45,0.12)",
-              color: "#1B3A2D",
+              width: 36,
+              height: 36,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "transparent",
+              border: `1px solid ${C.rule}`,
+              color: C.inkMuted,
+              cursor: "pointer",
+              transition: "all 0.2s ease",
             }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = C.inkMuted; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = C.rule; }}
             aria-label="Anterior"
           >
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={() => handleNav("next")}
-            className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
             style={{
-              background: "#1B3A2D",
-              color: "#F0EBE0",
+              width: 36,
+              height: 36,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: C.navy,
+              border: "none",
+              color: C.navyText,
+              cursor: "pointer",
+              transition: "opacity 0.2s ease",
             }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.82"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
             aria-label="Următor"
           >
             <ChevronRight size={16} />
           </button>
         </div>
       </div>
-
-      {/* Stagger cards behind */}
-      {isInView && (
-        <div className="absolute inset-0 -z-10 pointer-events-none">
-          {[1, 2].map((offset) => (
-            <motion.div
-              key={offset}
-              initial={{ opacity: 0, y: offset * 12, scale: 1 - offset * 0.04 }}
-              animate={{ opacity: 1 - offset * 0.3, y: offset * 12, scale: 1 - offset * 0.04 }}
-              transition={{ duration: 0.6, delay: offset * 0.1, ease: [0.32, 0.72, 0, 1] }}
-              className="absolute inset-x-0 rounded-[2rem] h-full"
-              style={{
-                background: "#FDFBF7",
-                border: "1px solid rgba(43,74,60,0.1)",
-                transformOrigin: "bottom center",
-                top: 0,
-                marginLeft: `${offset * 12}px`,
-                marginRight: `${offset * 12}px`,
-              }}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

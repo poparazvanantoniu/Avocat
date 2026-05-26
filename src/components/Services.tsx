@@ -6,117 +6,185 @@ import { useRef } from "react";
 const services = [
   {
     num: "01",
-    title: "Apărare penală",
+    title: "Apărare Penală",
     description:
-      "Reprezentare completă în dosare penale — de la prima audiere la pronunțarea sentinței. Strategie juridică riguroasă, adaptată fiecărui caz.",
+      "Reprezentare completă în dosare penale — de la prima audiere la pronunțarea sentinței. Strategie juridică riguroasă, adaptată fiecărui caz în parte.",
   },
   {
     num: "02",
-    title: "Urmărire penală",
+    title: "Urmărire Penală",
     description:
       "Asistență în faza de urmărire penală: audierea ca suspect sau inculpat, prezența la percheziții, contestarea măsurilor preventive.",
   },
   {
     num: "03",
-    title: "Recursuri și contestații",
+    title: "Recursuri și Contestații",
     description:
       "Atacarea hotărârilor nelegale sau netemeinice. Analiza detaliată a dosarului și construirea argumentelor pentru instanțele superioare.",
   },
   {
     num: "04",
-    title: "Consultanță juridică",
+    title: "Consultanță Juridică",
     description:
       "Evaluarea situației juridice, analiza riscurilor penale și sfaturi preventive pentru persoane fizice și entități juridice.",
+  },
+  {
+    num: "05",
+    title: "Reprezentare în Instanță",
+    description:
+      "Prezență activă și pledoarie susținută în fața instanțelor de judecată, cu pregătire temeinică a fiecărei etape procesuale.",
   },
 ];
 
 export default function Services() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section className="py-20 px-6" style={{ background: "#F5F0E6" }}>
-      <div className="max-w-5xl mx-auto">
-        <div ref={ref} className="mb-14">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-            className="flex items-center gap-3 mb-4"
-          >
-            <div className="h-px w-8" style={{ background: "#1B3A2D" }} />
-            <span
-              className="text-[10px] uppercase tracking-[0.3em] font-medium"
-              style={{ color: "#1B3A2D" }}
-            >
-              Ce putem face pentru dumneavoastră
-            </span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.32, 0.72, 0, 1] }}
-            className="text-4xl sm:text-5xl font-bold leading-tight"
-            style={{ color: "#1A1714", fontFamily: '"Times New Roman", Times, serif' }}
-          >
-            Servicii juridice
-            <br />
-            <span className="italic" style={{ color: "#2B4A3C" }}>specializate</span>
-          </motion.h2>
-        </div>
+    <section
+      id="servicii"
+      style={{ background: "#EDEAE3", padding: "80px 24px" }}
+    >
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        {/* Top rule */}
+        <div style={{ height: 1, background: "#CCC8C0", marginBottom: 0 }} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {services.map((s, i) => (
-            <ServiceCard key={s.num} service={s} delay={i * 0.1} />
-          ))}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 0,
+            alignItems: "flex-start",
+          }}
+        >
+          {/* LEFT: sticky column */}
+          <div
+            style={{
+              width: "35%",
+              flexShrink: 0,
+              position: "sticky",
+              top: 128,
+              paddingTop: 40,
+              paddingRight: 48,
+              paddingBottom: 40,
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: 'var(--font-cormorant), "Times New Roman", serif',
+                fontSize: 52,
+                fontWeight: 300,
+                lineHeight: 1.1,
+                color: "#111111",
+                margin: "0 0 20px 0",
+              }}
+            >
+              Cum vă
+              <br />
+              ajutăm
+            </h2>
+            <p
+              style={{
+                fontSize: 14,
+                color: "#6B6460",
+                lineHeight: 1.7,
+                fontFamily: '"Times New Roman", Times, serif',
+                margin: 0,
+                maxWidth: 240,
+              }}
+            >
+              Experiență complexă în apărarea intereselor dumneavoastră juridice.
+            </p>
+          </div>
+
+          {/* RIGHT: scrolling service rows */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            {services.map((service, i) => (
+              <ServiceRow key={service.num} service={service} index={i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function ServiceCard({
+function ServiceRow({
   service,
-  delay,
+  index,
 }: {
   service: (typeof services)[0];
-  delay: number;
+  index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay, ease: [0.32, 0.72, 0, 1] }}
-      className="group relative p-1 rounded-[1.5rem] transition-all duration-500 hover:-translate-y-0.5"
+      initial={{ opacity: 0, x: -20 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.08,
+        ease: [0.32, 0.72, 0, 1],
+      }}
       style={{
-        background: "rgba(15,32,25,0.04)",
-        border: "1px solid rgba(27,58,45,0.12)",
+        borderTop: "1px solid #CCC8C0",
+        paddingTop: 40,
+        paddingBottom: 40,
+        display: "flex",
+        alignItems: "flex-start",
+        gap: 24,
       }}
     >
+      {/* Circle number badge */}
       <div
-        className="rounded-[1.25rem] p-7 h-full flex flex-col gap-4 transition-all duration-500"
         style={{
-          background: "#FDFBF7",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)",
+          width: 40,
+          height: 40,
+          borderRadius: "50%",
+          border: "1px solid #CCC8C0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+          marginTop: 4,
         }}
       >
         <span
-          className="text-[11px] font-bold tracking-widest"
-          style={{ color: "#5A8F78" }}
+          style={{
+            fontSize: 12,
+            color: "#6B6460",
+            fontFamily: '"Times New Roman", Times, serif',
+            letterSpacing: "0.05em",
+          }}
         >
           {service.num}
         </span>
+      </div>
+
+      {/* Text content */}
+      <div style={{ flex: 1, minWidth: 0 }}>
         <h3
-          className="text-xl font-bold"
-          style={{ color: "#1A1714", fontFamily: '"Times New Roman", Times, serif' }}
+          style={{
+            fontFamily: 'var(--font-cormorant), "Times New Roman", serif',
+            fontSize: 28,
+            fontWeight: 500,
+            color: "#111111",
+            margin: "0 0 12px 0",
+            lineHeight: 1.2,
+          }}
         >
           {service.title}
         </h3>
-        <p className="text-sm leading-relaxed" style={{ color: "#68635E" }}>
+        <p
+          style={{
+            fontSize: 14,
+            color: "#6B6460",
+            lineHeight: 1.75,
+            fontFamily: '"Times New Roman", Times, serif',
+            margin: 0,
+            maxWidth: 520,
+          }}
+        >
           {service.description}
         </p>
       </div>

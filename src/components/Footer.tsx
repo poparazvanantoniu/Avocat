@@ -2,13 +2,49 @@
 
 import Link from "next/link";
 
+const C = {
+  bg:       "#EDEAE3",
+  ink:      "#111111",
+  inkMuted: "#6B6460",
+  rule:     "#CCC8C0",
+  navy:     "#1A1928",
+  navyText: "#EDEAE3",
+} as const;
+
 const practiceLinks = [
-  { label: "Drept Penal", href: "/drept-penal" },
-  { label: "Drept Civil", href: "/drept-civil" },
-  { label: "Drept Administrativ", href: "/drept-administrativ" },
-  { label: "Drept Fiscal", href: "/drept-fiscal" },
-  { label: "Drept Comercial", href: "/drept-comercial" },
+  { label: "Drept Penal",        href: "/drept-penal" },
+  { label: "Drept Civil",        href: "/drept-civil" },
+  { label: "Drept Administrativ",href: "/drept-administrativ" },
+  { label: "Drept Fiscal",       href: "/drept-fiscal" },
+  { label: "Drept Comercial",    href: "/drept-comercial" },
 ];
+
+function OETMark() {
+  return (
+    <div
+      style={{
+        width:          36,
+        height:         36,
+        background:     C.navy,
+        color:          C.navyText,
+        display:        "flex",
+        alignItems:     "center",
+        justifyContent: "center",
+        flexShrink:     0,
+      }}
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <line x1="10" y1="2"  x2="10" y2="17" stroke={C.navyText} strokeWidth="1"   strokeLinecap="round" />
+        <line x1="6"  y1="17" x2="14" y2="17" stroke={C.navyText} strokeWidth="1"   strokeLinecap="round" />
+        <line x1="3"  y1="6"  x2="17" y2="6"  stroke={C.navyText} strokeWidth="1"   strokeLinecap="round" />
+        <line x1="3"  y1="6"  x2="3"  y2="10" stroke={C.navyText} strokeWidth="0.8" strokeLinecap="round" />
+        <line x1="17" y1="6"  x2="17" y2="10" stroke={C.navyText} strokeWidth="0.8" strokeLinecap="round" />
+        <path d="M1 10 Q3 13.5 5 10"    stroke={C.navyText} strokeWidth="0.8" fill="none" strokeLinecap="round" />
+        <path d="M15 10 Q17 13.5 19 10" stroke={C.navyText} strokeWidth="0.8" fill="none" strokeLinecap="round" />
+      </svg>
+    </div>
+  );
+}
 
 export default function Footer() {
   const scrollTo = (id: string) => {
@@ -17,61 +53,95 @@ export default function Footer() {
 
   return (
     <footer
-      className="px-6 py-16"
       style={{
-        background: "#0B1A12",
-        borderTop: "1px solid rgba(212,232,222,0.08)",
+        background:  C.navy,
+        borderTop:   `1px solid rgba(237,234,227,0.08)`,
+        padding:     "64px 24px 40px",
       }}
     >
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-          {/* Brand */}
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        {/* Top grid */}
+        <div
+          style={{
+            display:             "grid",
+            gridTemplateColumns: "2fr 1fr 1fr",
+            gap:                 48,
+            paddingBottom:       48,
+            borderBottom:        "1px solid rgba(237,234,227,0.1)",
+          }}
+        >
+          {/* Brand column */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold tracking-wide"
-                style={{
-                  background: "rgba(212,232,222,0.08)",
-                  color: "#D4E8DE",
-                  border: "1px solid rgba(212,232,222,0.15)",
-                  fontFamily: '"Times New Roman", Times, serif',
-                }}
-              >
-                OET
-              </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <OETMark />
               <div>
                 <div
-                  className="font-bold text-sm"
-                  style={{ color: "#D4E8DE", fontFamily: '"Times New Roman", Times, serif' }}
+                  style={{
+                    fontFamily:    "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                    fontSize:      17,
+                    fontWeight:    400,
+                    color:         C.navyText,
+                    letterSpacing: "0.01em",
+                  }}
                 >
                   Oancea Emil Teodor
                 </div>
-                <div className="text-[10px] uppercase tracking-wider mt-0.5" style={{ color: "rgba(212,232,222,0.35)" }}>
+                <div
+                  style={{
+                    fontSize:      10,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color:         "rgba(237,234,227,0.35)",
+                    fontFamily:    '"Times New Roman", Times, serif',
+                    marginTop:     3,
+                  }}
+                >
                   Avocat · Baroul Cluj
                 </div>
               </div>
             </div>
-            <p className="text-sm leading-relaxed" style={{ color: "rgba(212,232,222,0.35)" }}>
+            <p
+              style={{
+                fontSize:   14,
+                lineHeight: 1.75,
+                color:      "rgba(237,234,227,0.4)",
+                fontFamily: '"Times New Roman", Times, serif',
+                maxWidth:   300,
+              }}
+            >
               Cabinet de avocatură specializat în drept penal,
-              cu sediul în Cluj-Napoca.
+              cu sediul în Cluj-Napoca. Fostă experiență ca judecător și procuror.
             </p>
           </div>
 
           {/* Practice areas */}
           <div>
             <h4
-              className="text-[10px] uppercase tracking-[0.25em] mb-4 font-medium"
-              style={{ color: "rgba(212,232,222,0.35)" }}
+              style={{
+                fontSize:      10,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color:         "rgba(237,234,227,0.35)",
+                fontFamily:    '"Times New Roman", Times, serif',
+                margin:        "0 0 20px 0",
+              }}
             >
               Arii de practică
             </h4>
-            <ul className="flex flex-col gap-2">
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
               {practiceLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm transition-colors duration-200 hover:opacity-80"
-                    style={{ color: "rgba(212,232,222,0.55)" }}
+                    style={{
+                      fontSize:       13,
+                      fontFamily:     '"Times New Roman", Times, serif',
+                      color:          "rgba(237,234,227,0.5)",
+                      textDecoration: "none",
+                      transition:     "color 0.18s ease",
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = C.navyText; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(237,234,227,0.5)"; }}
                   >
                     {link.label}
                   </Link>
@@ -83,34 +153,67 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h4
-              className="text-[10px] uppercase tracking-[0.25em] mb-4 font-medium"
-              style={{ color: "rgba(212,232,222,0.35)" }}
+              style={{
+                fontSize:      10,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color:         "rgba(237,234,227,0.35)",
+                fontFamily:    '"Times New Roman", Times, serif',
+                margin:        "0 0 20px 0",
+              }}
             >
               Contact
             </h4>
-            <div className="flex flex-col gap-3">
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <a
                 href="tel:+40745127656"
-                className="text-sm transition-colors duration-200 hover:opacity-80"
-                style={{ color: "rgba(212,232,222,0.55)" }}
+                style={{
+                  fontSize:       13,
+                  fontFamily:     '"Times New Roman", Times, serif',
+                  color:          "rgba(237,234,227,0.5)",
+                  textDecoration: "none",
+                  transition:     "color 0.18s ease",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = C.navyText; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(237,234,227,0.5)"; }}
               >
                 +40 745 127 656
               </a>
-              <p className="text-sm" style={{ color: "rgba(212,232,222,0.55)" }}>
+              <p
+                style={{
+                  fontSize:   13,
+                  fontFamily: '"Times New Roman", Times, serif',
+                  color:      "rgba(237,234,227,0.5)",
+                  margin:     0,
+                  lineHeight: 1.6,
+                }}
+              >
                 Strada Eroilor Nr. 10
                 <br />
                 Cluj-Napoca
               </p>
               <button
                 onClick={() => scrollTo("#contact")}
-                className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-medium transition-all duration-300 hover:scale-105"
                 style={{
-                  background: "rgba(212,232,222,0.08)",
-                  color: "#D4E8DE",
-                  border: "1px solid rgba(212,232,222,0.12)",
+                  display:       "inline-flex",
+                  alignItems:    "center",
+                  gap:           6,
+                  background:    "transparent",
+                  border:        "1px solid rgba(237,234,227,0.2)",
+                  color:         C.navyText,
+                  padding:       "8px 18px",
+                  fontSize:      11,
+                  letterSpacing: "0.08em",
+                  cursor:        "pointer",
+                  fontFamily:    '"Times New Roman", Times, serif',
+                  transition:    "border-color 0.2s ease",
+                  marginTop:     4,
+                  borderRadius:  9999,
                 }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(237,234,227,0.45)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(237,234,227,0.2)"; }}
               >
-                Solicitați consultație
+                Consultație gratuită →
               </button>
             </div>
           </div>
@@ -118,21 +221,50 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3"
-          style={{ borderTop: "1px solid rgba(212,232,222,0.07)" }}
+          style={{
+            paddingTop:     24,
+            display:        "flex",
+            alignItems:     "center",
+            justifyContent: "space-between",
+            flexWrap:       "wrap",
+            gap:            12,
+          }}
         >
-          <p className="text-[11px]" style={{ color: "rgba(212,232,222,0.25)" }}>
+          <p
+            style={{
+              fontSize:   11,
+              color:      "rgba(237,234,227,0.22)",
+              fontFamily: '"Times New Roman", Times, serif',
+              margin:     0,
+            }}
+          >
             © {new Date().getFullYear()} Oancea Emil Teodor — Cabinet de Avocatură. Toate drepturile rezervate.
           </p>
           <Link
             href="/despre-avocat"
-            className="text-[11px] transition-colors duration-200 hover:opacity-70"
-            style={{ color: "rgba(212,232,222,0.25)" }}
+            style={{
+              fontSize:       11,
+              color:          "rgba(237,234,227,0.22)",
+              textDecoration: "none",
+              fontFamily:     '"Times New Roman", Times, serif',
+              transition:     "color 0.18s ease",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(237,234,227,0.5)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(237,234,227,0.22)"; }}
           >
             Despre avocat
           </Link>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          footer > div > div:first-child {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

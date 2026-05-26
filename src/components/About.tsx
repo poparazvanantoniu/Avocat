@@ -5,172 +5,259 @@ import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+const credentials = [
+  {
+    title: "Judecător",
+    body: "Experiență directă în sistemul judiciar. Cunoaște cum gândește un judecător, ce argumente contează și cum sunt luate deciziile în sala de judecată.",
+  },
+  {
+    title: "Procuror",
+    body: "A construit dosare de acuzare. Știe exact ce caută parchetul, cum sunt evaluate probele și unde pot fi identificate vulnerabilitățile acuzării.",
+  },
+  {
+    title: "Avocat Penalist",
+    body: "Toate acestea puse în slujba apărării dumneavoastră. O viziune completă a sistemului juridic, de la toate unghiurile.",
+  },
+];
+
 export default function About() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const philosophyRef = useRef<HTMLDivElement>(null);
+  const philosophyInView = useInView(philosophyRef, { once: true, margin: "-80px" });
+
+  const credentialsRef = useRef<HTMLDivElement>(null);
+  const credentialsInView = useInView(credentialsRef, { once: true, margin: "-80px" });
 
   return (
-    <section
-      id="despre"
-      className="py-28 px-6 overflow-hidden"
-      style={{ background: "#0F2019" }}
-    >
-      <div className="max-w-5xl mx-auto">
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-          {/* Left: portrait */}
-          <motion.div
-            initial={{ opacity: 0, x: -32 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-            className="relative order-2 lg:order-1"
-          >
-            {/* Double-bezel frame */}
-            <div
-              className="relative rounded-[2rem] p-2"
+    <div id="despre" style={{ background: "#EDEAE3" }}>
+      {/* ── SUBSECTION A: Ce ne definește ── */}
+      <section style={{ padding: "96px 24px", background: "#EDEAE3" }}>
+        <div
+          ref={philosophyRef}
+          style={{
+            maxWidth: 1100,
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "row",
+            gap: 72,
+            alignItems: "center",
+          }}
+        >
+          {/* Left: text */}
+          <div style={{ flex: "1 1 0", minWidth: 0 }}>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={philosophyInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
               style={{
-                background: "rgba(212,232,222,0.06)",
-                border: "1px solid rgba(212,232,222,0.14)",
+                fontSize: 11,
+                color: "#6B6460",
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+                fontFamily: '"Times New Roman", Times, serif',
+                margin: "0 0 16px 0",
               }}
             >
-              <div
-                className="relative rounded-[1.5rem] overflow-hidden"
-                style={{
-                  boxShadow: "inset 0 1px 1px rgba(255,255,255,0.06), 0 32px 64px rgba(0,0,0,0.5)",
-                  aspectRatio: "4/5",
-                }}
-              >
-                <Image
-                  src="/avocat.jpg"
-                  alt="Oancea Emil Teodor — Avocat Penalist"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover object-top"
-                  priority
-                />
-                {/* Subtle bottom gradient overlay */}
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background: "linear-gradient(to top, rgba(11,26,18,0.6) 0%, transparent 50%)",
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Floating credential badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.5, ease: [0.32, 0.72, 0, 1] }}
-              className="absolute -bottom-4 -right-4 lg:-right-8"
-            >
-              <div
-                className="px-5 py-3.5 rounded-2xl"
-                style={{
-                  background: "rgba(15,32,25,0.92)",
-                  backdropFilter: "blur(20px)",
-                  border: "1px solid rgba(212,232,222,0.12)",
-                  boxShadow: "0 16px 40px rgba(0,0,0,0.4)",
-                }}
-              >
-                <p
-                  className="text-sm font-semibold mb-0.5"
-                  style={{ color: "#D4E8DE", fontFamily: '"Times New Roman", Times, serif' }}
-                >
-                  Oancea Emil Teodor
-                </p>
-                <p className="text-[11px] uppercase tracking-wider" style={{ color: "rgba(212,232,222,0.4)" }}>
-                  Avocat · Baroul Cluj
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Right: text */}
-          <div className="order-1 lg:order-2">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-              className="flex items-center gap-3 mb-5"
-            >
-              <div className="h-px w-8" style={{ background: "rgba(212,232,222,0.4)" }} />
-              <span
-                className="text-[10px] uppercase tracking-[0.3em] font-medium"
-                style={{ color: "rgba(212,232,222,0.5)" }}
-              >
-                Persoana din spatele dosarului
-              </span>
-            </motion.div>
+              Despre avocat
+            </motion.p>
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              animate={philosophyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.32, 0.72, 0, 1] }}
-              className="text-4xl sm:text-5xl font-bold leading-[1.1] mb-6 text-white"
-              style={{ fontFamily: '"Times New Roman", Times, serif' }}
+              style={{
+                fontFamily: 'var(--font-cormorant), "Times New Roman", serif',
+                fontSize: 56,
+                fontWeight: 300,
+                color: "#111111",
+                lineHeight: 1.1,
+                margin: "0 0 28px 0",
+              }}
             >
-              Oancea
-              <br />
-              <span className="italic" style={{ color: "#D4E8DE" }}>Emil Teodor</span>
+              Ce ne definește
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              animate={philosophyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.32, 0.72, 0, 1] }}
-              className="text-base leading-relaxed mb-4"
-              style={{ color: "rgba(255,255,255,0.55)" }}
+              style={{
+                fontSize: 16,
+                color: "#6B6460",
+                lineHeight: 1.8,
+                fontFamily: '"Times New Roman", Times, serif',
+                margin: 0,
+                maxWidth: 480,
+              }}
             >
-              Avocat înscris în Baroul Cluj, cu o practică solidă în drept penal.
-              Am ales să profesez în domeniu nu dintr-un calcul, ci dintr-o convingere:
-              că fiecare persoană merită o apărare corectă, indiferent de circumstanțe.
+              Dreptul nu este doar o profesie — este o responsabilitate. Tot ceea
+              ce facem este ghidat de principii clare: onestitate față de client,
+              pregătire temeinică a cazului și reprezentare dedicată în fiecare
+              moment al procesului.
             </motion.p>
+          </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.3, ease: [0.32, 0.72, 0, 1] }}
-              className="text-base leading-relaxed mb-8"
-              style={{ color: "rgba(255,255,255,0.40)" }}
-            >
-              Abordez fiecare dosar cu atenție la detalii, comunicare transparentă
-              și angajamentul de a obține cel mai bun rezultat posibil pentru clientul meu.
-            </motion.p>
+          {/* Right: image */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={philosophyInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.32, 0.72, 0, 1] }}
+            style={{
+              flexShrink: 0,
+              width: 340,
+              aspectRatio: "3/4",
+              position: "relative",
+              boxShadow: "0 24px 64px rgba(0,0,0,0.12)",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src="/hero.jpg"
+              alt="Avocat — Ce ne definește"
+              fill
+              sizes="(max-width: 768px) 100vw, 340px"
+              style={{ objectFit: "cover" }}
+            />
+          </motion.div>
+        </div>
+      </section>
 
+      {/* ── SUBSECTION B: Experiență unică (navy) ── */}
+      <section style={{ background: "#1A1928", padding: "96px 24px" }}>
+        <div
+          ref={credentialsRef}
+          style={{ maxWidth: 1100, margin: "0 auto" }}
+        >
+          {/* Heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={credentialsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+            style={{
+              fontFamily: 'var(--font-cormorant), "Times New Roman", serif',
+              fontSize: 48,
+              fontWeight: 300,
+              color: "#EDEAE3",
+              textAlign: "center",
+              margin: "0 0 48px 0",
+              lineHeight: 1.15,
+            }}
+          >
+            O perspectivă pe care puțini avocați o au
+          </motion.h2>
+
+          {/* Two-column: credentials grid + portrait */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 64,
+              alignItems: "flex-start",
+            }}
+          >
+            {/* Left: three credential cards */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gap: 32,
+                }}
+              >
+                {credentials.map((cred, i) => (
+                  <motion.div
+                    key={cred.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={credentialsInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.15 + i * 0.12,
+                      ease: [0.32, 0.72, 0, 1],
+                    }}
+                    style={{
+                      borderTop: "2px solid rgba(237,234,227,0.2)",
+                      paddingTop: 24,
+                    }}
+                  >
+                    <h3
+                      style={{
+                        fontFamily: 'var(--font-cormorant), "Times New Roman", serif',
+                        fontSize: 28,
+                        fontWeight: 400,
+                        color: "#EDEAE3",
+                        margin: "0 0 14px 0",
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {cred.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: 14,
+                        color: "rgba(237,234,227,0.6)",
+                        lineHeight: 1.75,
+                        fontFamily: '"Times New Roman", Times, serif',
+                        margin: 0,
+                      }}
+                    >
+                      {cred.body}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* CTA link */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={credentialsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.55, ease: [0.32, 0.72, 0, 1] }}
+                style={{ marginTop: 40 }}
+              >
+                <Link
+                  href="/despre-avocat"
+                  style={{
+                    display: "inline-block",
+                    border: "1px solid rgba(237,234,227,0.3)",
+                    color: "#EDEAE3",
+                    padding: "12px 32px",
+                    borderRadius: 9999,
+                    fontSize: 14,
+                    fontFamily: '"Times New Roman", Times, serif',
+                    letterSpacing: "0.04em",
+                    textDecoration: "none",
+                    transition: "background 0.25s ease, border-color 0.25s ease",
+                  }}
+                >
+                  Află mai multe →
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Right: portrait */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.4, ease: [0.32, 0.72, 0, 1] }}
-              className="flex flex-col sm:flex-row gap-3"
+              initial={{ opacity: 0, x: 24 }}
+              animate={credentialsInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.32, 0.72, 0, 1] }}
+              style={{
+                flexShrink: 0,
+                width: 240,
+                height: 300,
+                position: "relative",
+                borderRadius: 8,
+                overflow: "hidden",
+                boxShadow: "0 24px 64px rgba(0,0,0,0.4)",
+              }}
             >
-              <Link
-                href="/despre-avocat"
-                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105"
-                style={{
-                  background: "rgba(212,232,222,0.1)",
-                  color: "#D4E8DE",
-                  border: "1px solid rgba(212,232,222,0.2)",
-                }}
-              >
-                Află mai multe
-                <span className="text-xs opacity-60">→</span>
-              </Link>
-              <a
-                href="tel:+40745127656"
-                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105"
-                style={{
-                  background: "transparent",
-                  color: "rgba(212,232,222,0.5)",
-                  border: "1px solid rgba(212,232,222,0.1)",
-                }}
-              >
-                +40 745 127 656
-              </a>
+              <Image
+                src="/avocat.jpg"
+                alt="Avocat Oancea Emil Teodor"
+                fill
+                sizes="240px"
+                style={{ objectFit: "cover", objectPosition: "top" }}
+              />
             </motion.div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

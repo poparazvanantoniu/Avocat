@@ -1,181 +1,341 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
+
+/* ─── Palette ──────────────────────────────────────────── */
+const C = {
+  bg:       "#EDEAE3",
+  bgAlt:    "#E5E1D8",
+  ink:      "#111111",
+  inkMuted: "#6B6460",
+  rule:     "#CCC8C0",
+  navy:     "#1A1928",
+  navyText: "#EDEAE3",
+} as const;
+
+/* ─── Shared easing ────────────────────────────────────── */
+const ease = [0.32, 0.72, 0, 1] as const;
 
 export default function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  /* Ref for the whole section — drives scroll progress */
+  const sectionRef = useRef<HTMLElement>(null);
 
-  const scrollTo = (id: string) => {
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  /* Parallax: image shifts 18% upward as the section scrolls out */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       id="hero"
-      className="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden"
+      style={{
+        minHeight:      "100dvh",
+        background:     C.bg,
+        display:        "flex",
+        flexDirection:  "column",
+        overflow:       "hidden",
+      }}
     >
-      {/* Background image + overlay */}
-      <motion.div
-        className="absolute inset-0"
-        style={{ y: bgY }}
+      {/* ══════════════════════════════════════════
+          TOP — editorial split
+      ══════════════════════════════════════════ */}
+      <div
+        className="hero-grid"
+        style={{
+          flex:                "1 0 auto",
+          display:             "grid",
+          gridTemplateColumns: "55fr 45fr",
+          gap:                 0,
+          padding:             "clamp(88px, 14vh, 152px) clamp(24px, 6vw, 96px) clamp(48px, 7vh, 88px)",
+          alignItems:          "end",
+        }}
       >
+        {/* ── LEFT: display name ─────────────────── */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/hero.jpg')",
-            backgroundPosition: "center 30%",
+            paddingRight: "clamp(24px, 4vw, 64px)",
+            borderRight:  `1px solid ${C.rule}`,
           }}
-        />
-        {/* Dark gradient overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(180deg, rgba(11,26,18,0.72) 0%, rgba(11,26,18,0.55) 40%, rgba(11,26,18,0.80) 100%)",
-          }}
-        />
-        {/* Vignette */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 100% 100% at 50% 0%, transparent 40%, rgba(11,26,18,0.4) 100%)",
-          }}
-        />
-      </motion.div>
+        >
+          {/* Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.18, ease }}
+            style={{
+              display:      "flex",
+              alignItems:   "center",
+              gap:          14,
+              marginBottom: "clamp(20px, 3vh, 40px)",
+            }}
+          >
+            <div
+              style={{
+                width:      28,
+                height:     1,
+                background: C.inkMuted,
+                flexShrink: 0,
+              }}
+            />
+            <span
+              style={{
+                fontSize:      11,
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+                color:         C.inkMuted,
+                fontFamily:    '"Times New Roman", Times, serif',
+              }}
+            >
+              Avocat Penalist · Baroul Cluj
+            </span>
+          </motion.div>
 
-      {/* Decorative top line */}
+          {/* Massive display name */}
+          <motion.h1
+            initial={{ opacity: 0, y: 36 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease }}
+            style={{
+              fontFamily:    "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+              fontSize:      "clamp(72px, 10vw, 160px)",
+              fontWeight:    300,
+              letterSpacing: "-0.02em",
+              lineHeight:    0.95,
+              color:         C.ink,
+            }}
+          >
+            Oancea Emil
+            <br />
+            Teodor
+          </motion.h1>
+
+          {/* CTA button */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.58, ease }}
+            style={{ marginTop: "clamp(24px, 3.5vh, 40px)" }}
+          >
+            <a
+              href="tel:+40745127656"
+              style={{
+                display:        "inline-flex",
+                alignItems:     "center",
+                gap:            8,
+                background:     C.navy,
+                color:          C.navyText,
+                borderRadius:   9999,
+                padding:        "12px 28px",
+                fontSize:       13,
+                letterSpacing:  "0.04em",
+                textDecoration: "none",
+                fontFamily:     '"Times New Roman", Times, serif',
+                transition:     "opacity 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.opacity = "0.82";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+              }}
+            >
+              Consultație gratuită →
+            </a>
+          </motion.div>
+        </div>
+
+        {/* ── RIGHT: italic quote ────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.78, delay: 0.44, ease }}
+          style={{
+            paddingLeft:    "clamp(24px, 4vw, 64px)",
+            display:        "flex",
+            flexDirection:  "column",
+            justifyContent: "flex-end",
+            paddingBottom:  4,
+          }}
+        >
+          <blockquote>
+            <p
+              style={{
+                fontFamily:    "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                fontSize:      "clamp(17px, 1.55vw, 22px)",
+                fontWeight:    400,
+                fontStyle:     "italic",
+                lineHeight:    1.6,
+                color:         C.ink,
+                marginBottom:  22,
+              }}
+            >
+              „Un avocat bun nu doar cunoaște legea, el o trăiește.
+              Atunci când ai stat și de partea cealaltă a balanței,
+              înveți să respecți greutatea fiecărui argument."
+            </p>
+            <footer
+              style={{
+                fontSize:      12,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color:         C.inkMuted,
+                fontFamily:    '"Times New Roman", Times, serif',
+              }}
+            >
+              — Oancea Emil Teodor
+            </footer>
+          </blockquote>
+        </motion.div>
+      </div>
+
+      {/* ══════════════════════════════════════════
+          Horizontal rule
+      ══════════════════════════════════════════ */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
-        transition={{ duration: 1.4, delay: 0.6, ease: [0.32, 0.72, 0, 1] }}
-        className="absolute top-0 left-0 right-0 h-px origin-left"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(212,232,222,0.4), transparent)" }}
+        transition={{ duration: 1.05, delay: 0.62, ease: [0.32, 0.72, 0, 1] }}
+        style={{
+          height:          1,
+          background:      C.rule,
+          transformOrigin: "left",
+          margin:          "0 clamp(24px, 6vw, 96px)",
+          flexShrink:      0,
+        }}
       />
 
-      {/* Content */}
-      <motion.div
-        style={{ y: textY, opacity }}
-        className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto"
+      {/* ══════════════════════════════════════════
+          BOTTOM — full-width image with parallax
+      ══════════════════════════════════════════ */}
+      <div
+        className="hero-image-wrap"
+        style={{
+          position:   "relative",
+          overflow:   "hidden",
+          aspectRatio: "16 / 5",
+          flexShrink: 0,
+        }}
       >
-        {/* Eyebrow */}
+        {/* Parallax layer */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25, ease: [0.32, 0.72, 0, 1] }}
-          className="mb-8 flex items-center gap-4"
-        >
-          <div className="h-px w-10" style={{ background: "rgba(212,232,222,0.5)" }} />
-          <span
-            className="text-[11px] uppercase tracking-[0.3em] font-medium"
-            style={{ color: "rgba(212,232,222,0.7)" }}
-          >
-            Avocat Penalist · Baroul Cluj
-          </span>
-          <div className="h-px w-10" style={{ background: "rgba(212,232,222,0.5)" }} />
-        </motion.div>
-
-        {/* Name */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: [0.32, 0.72, 0, 1] }}
-          className="text-sm uppercase tracking-[0.4em] mb-4"
-          style={{ color: "rgba(212,232,222,0.55)" }}
-        >
-          Oancea Emil Teodor
-        </motion.p>
-
-        {/* Main heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.5, ease: [0.32, 0.72, 0, 1] }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] tracking-tight text-white"
-          style={{ fontFamily: '"Times New Roman", Times, serif' }}
-        >
-          Dreptul tău,{" "}
-          <span className="italic" style={{ color: "#D4E8DE" }}>
-            apărat
-          </span>
-          <br />
-          cu fermitate.
-        </motion.h1>
-
-        {/* Quote */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7, ease: [0.32, 0.72, 0, 1] }}
-          className="mt-7 text-base sm:text-lg max-w-xl leading-relaxed italic"
-          style={{ color: "rgba(255,255,255,0.50)" }}
-        >
-          &ldquo;Salus populi suprema lex esto.&rdquo;
-        </motion.p>
-
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.85, ease: [0.32, 0.72, 0, 1] }}
-          className="mt-4 text-sm sm:text-base max-w-lg leading-relaxed"
-          style={{ color: "rgba(255,255,255,0.45)" }}
-        >
-          Specializat în drept penal, cu o experienţă solidă în apărarea persoanelor
-          acuzate în dosare complexe, urmărire penală și judecată. Cluj-Napoca.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0, ease: [0.32, 0.72, 0, 1] }}
-          className="mt-10 flex flex-col sm:flex-row items-center gap-4"
-        >
-          <a
-            href="tel:+40745127656"
-            className="group flex items-center gap-3 px-7 py-4 rounded-full font-medium text-sm transition-all duration-500 hover:scale-105"
-            style={{ background: "#1B3A2D", color: "#F0EBE0", border: "1px solid rgba(212,232,222,0.2)" }}
-          >
-            +40 745 127 656
-            <span
-              className="w-6 h-6 rounded-full flex items-center justify-center text-xs transition-transform duration-300 group-hover:translate-x-0.5"
-              style={{ background: "rgba(212,232,222,0.15)" }}
-            >
-              ↗
-            </span>
-          </a>
-          <button
-            onClick={() => scrollTo("#practici")}
-            className="flex items-center gap-2 px-7 py-4 rounded-full text-sm font-medium border transition-all duration-300 hover:bg-white/8"
-            style={{ color: "rgba(255,255,255,0.65)", borderColor: "rgba(255,255,255,0.18)" }}
-          >
-            Arii de practică
-          </button>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.25)" }}>
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-8"
-          style={{ background: "linear-gradient(to bottom, rgba(212,232,222,0.5), transparent)" }}
+          style={{
+            position:            "absolute",
+            inset:               "-12% 0",
+            backgroundImage:     "url('/hero.jpg')",
+            backgroundSize:      "cover",
+            backgroundPosition:  "center 40%",
+            backgroundRepeat:    "no-repeat",
+            y:                   imageY,
+          }}
         />
-      </motion.div>
+
+        {/* Top-edge scrim — blends image into paper */}
+        <div
+          style={{
+            position:       "absolute",
+            inset:          0,
+            background:     `linear-gradient(to bottom, ${C.bg}28 0%, transparent 28%)`,
+            pointerEvents:  "none",
+          }}
+        />
+
+        {/* Floating info card — bottom right */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.9, ease }}
+          style={{
+            position:   "absolute",
+            bottom:     "clamp(16px, 3vw, 36px)",
+            right:      "clamp(16px, 3vw, 36px)",
+            background: C.bg,
+            border:     `1px solid ${C.rule}`,
+            padding:    "clamp(20px, 2.5vw, 28px) clamp(24px, 3vw, 32px)",
+            maxWidth:   340,
+            boxShadow:  "0 12px 48px rgba(0,0,0,0.13)",
+          }}
+        >
+          <p
+            style={{
+              fontFamily:   "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+              fontSize:     18,
+              fontWeight:   400,
+              lineHeight:   1.48,
+              color:        C.ink,
+              marginBottom: 16,
+            }}
+          >
+            Fiecare caz merită atenție.
+            Spuneți-ne situația dumneavoastră.
+          </p>
+          <Link
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            style={{
+              display:        "inline-flex",
+              alignItems:     "center",
+              gap:            6,
+              fontSize:       11,
+              letterSpacing:  "0.16em",
+              textTransform:  "uppercase",
+              color:          C.inkMuted,
+              textDecoration: "none",
+              borderBottom:   `1px solid ${C.rule}`,
+              paddingBottom:  2,
+              fontFamily:     '"Times New Roman", Times, serif',
+              transition:     "color 0.18s, border-color 0.18s",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.color = C.ink;
+              el.style.borderBottomColor = C.inkMuted;
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.color = C.inkMuted;
+              el.style.borderBottomColor = C.rule;
+            }}
+          >
+            → Contact
+          </Link>
+        </motion.div>
+      </div>
+
+      {/* Responsive overrides */}
+      <style>{`
+        @media (max-width: 767px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            padding-top: clamp(100px, 16vh, 144px) !important;
+          }
+          .hero-grid > div:first-child {
+            border-right: none !important;
+            padding-right: 0 !important;
+            border-bottom: 1px solid ${C.rule};
+            padding-bottom: clamp(28px, 5vh, 48px);
+            margin-bottom: clamp(28px, 5vh, 48px);
+          }
+          .hero-grid > div:last-child {
+            padding-left: 0 !important;
+          }
+          .hero-image-wrap {
+            aspect-ratio: 4 / 3 !important;
+          }
+        }
+        @media (max-width: 479px) {
+          .hero-image-wrap {
+            aspect-ratio: 1 / 1 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
