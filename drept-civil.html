@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drept Civil — Alexandru Ionescu Avocat</title>
+<meta name="description" content="Reprezentare în litigii civile: contracte, succesiuni, proprietăți, răspundere civilă. Cabinet avocat Alexandru Ionescu, București.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ECEAE3;--ink:#1A1917;--ink2:#5A5750;--ink3:#9A9790;
+  --brown:#5C3A2E;--green:#2B4A3C;--border:#D4D0C8;
+  --serif:'Times New Roman',Times,serif;
+  --sans:'Times New Roman',Times,serif;
+  --ease:cubic-bezier(0.32,0.72,0,1);
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:var(--sans);border:none;background:none}
+
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.03;pointer-events:none;z-index:9999;mix-blend-mode:overlay}
+
+/* NAV */
+nav{position:fixed;top:20px;left:24px;right:24px;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:9px 10px 9px 18px;background:rgba(236,234,227,0.88);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(26,25,23,0.09);border-radius:60px;box-shadow:0 4px 24px rgba(26,25,23,0.06);transition:box-shadow 0.45s var(--ease),background 0.45s var(--ease)}
+nav.scrolled{background:rgba(236,234,227,0.97);box-shadow:0 8px 40px rgba(26,25,23,0.1)}
+.nav-brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-icon{width:30px;height:30px;flex-shrink:0}
+.nav-name{font-size:14px;font-weight:400;color:var(--ink);white-space:nowrap}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-phone{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:#fff;border-radius:100px;padding:9px 18px;font-size:13px;font-weight:400;white-space:nowrap;transition:opacity 0.18s var(--ease),transform 0.15s var(--ease)}
+.nav-phone:hover{opacity:.82}.nav-phone:active{transform:scale(0.97)}
+.nav-phone svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:1.8;flex-shrink:0}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);border:1.5px solid rgba(26,25,23,0.16);border-radius:100px;padding:8px 14px 8px 18px;font-size:13px;font-weight:400;white-space:nowrap;transition:background 0.22s var(--ease),color 0.22s var(--ease),transform 0.15s var(--ease)}
+.nav-cta:hover{background:var(--ink);color:#fff}.nav-cta:active{transform:scale(0.97)}
+.nav-cta-icon{width:24px;height:24px;border-radius:50%;background:rgba(26,25,23,0.07);display:flex;align-items:center;justify-content:center;transition:transform 0.22s var(--ease)}
+.nav-cta:hover .nav-cta-icon{transform:translate(2px,-1px);background:rgba(255,255,255,.15)}
+.nav-cta-icon svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink2);transition:color 0.2s var(--ease);padding:9px 8px;min-height:44px}
+.nav-back:hover{color:var(--ink)}
+.nav-back svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.hamburger{display:none;width:44px;height:44px;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);position:absolute;transition:transform 0.32s var(--ease),opacity 0.32s var(--ease)}
+.hamburger span:nth-child(1){transform:translateY(-5px)}.hamburger span:nth-child(3){transform:translateY(5px)}
+.hamburger.o span:nth-child(1){transform:rotate(45deg)}.hamburger.o span:nth-child(2){opacity:0}.hamburger.o span:nth-child(3){transform:rotate(-45deg)}
+.mmenu{position:fixed;inset:0;background:rgba(236,234,227,0.97);backdrop-filter:blur(24px);z-index:199;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:80px 36px 48px;opacity:0;pointer-events:none;transition:opacity 0.38s var(--ease)}
+.mmenu.open{opacity:1;pointer-events:all}
+.mmenu a{font-size:clamp(34px,8vw,56px);font-weight:400;color:var(--ink);line-height:1.25;display:block;padding:4px 0;opacity:0;transform:translateY(18px);transition:color 0.2s var(--ease),opacity 0.48s var(--ease),transform 0.48s var(--ease)}
+.mmenu.open a{opacity:1;transform:none}.mmenu.open a:nth-child(2){transition-delay:.05s}.mmenu.open a:nth-child(3){transition-delay:.1s}.mmenu.open a:nth-child(4){transition-delay:.15s}.mmenu.open a:nth-child(5){transition-delay:.2s}
+.mmenu a:hover{color:var(--brown)}
+.mmenu-close{position:absolute;top:26px;right:28px;font-size:13px;color:var(--ink2);transition:opacity 0.2s;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:flex-end}
+.mmenu-close:hover{opacity:.5}
+
+/* EYEBROW */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:100px;padding:5px 14px;font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--ink2);margin-bottom:18px}
+.eyebrow-dot{width:4px;height:4px;border-radius:50%;background:var(--ink3);flex-shrink:0}
+
+/* HERO */
+.page-hero{padding:140px 48px 96px;border-bottom:1px solid var(--border)}
+.page-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end}
+.page-hero-title{font-size:clamp(48px,7vw,96px);font-weight:400;line-height:.95;letter-spacing:-.025em;color:var(--ink)}
+.page-hero-right{padding-bottom:12px}
+.page-hero-intro{font-size:clamp(16px,1.8vw,21px);line-height:1.6;color:var(--ink2);font-weight:400;max-width:480px}
+.page-hero-meta{display:flex;align-items:center;gap:16px;margin-top:32px}
+.page-hero-meta-line{width:28px;height:1px;background:var(--border);flex-shrink:0}
+.page-hero-meta-text{font-size:12px;color:var(--ink3);letter-spacing:.05em}
+
+/* CONTENT */
+.content-section{padding:80px 48px;border-bottom:1px solid var(--border)}
+.content-grid{display:grid;grid-template-columns:1fr 1.8fr;gap:64px}
+.content-label{font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);padding-top:6px}
+.content-body h3{font-size:clamp(22px,2.5vw,32px);font-weight:400;line-height:1.15;letter-spacing:-.015em;color:var(--ink);margin-bottom:20px}
+.content-body p{font-size:16px;line-height:1.75;color:var(--ink2);margin-bottom:16px}
+.content-body p:last-child{margin-bottom:0}
+
+/* LIST SECTION */
+.list-section{padding:80px 48px;border-bottom:1px solid var(--border)}
+.list-section h2{font-size:clamp(28px,3vw,44px);font-weight:400;letter-spacing:-.015em;color:var(--ink);margin-bottom:48px;line-height:1.1}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.service-card{background:var(--bg);padding:40px 32px}
+.service-num{font-size:11px;color:var(--ink3);letter-spacing:.1em;margin-bottom:16px;display:block}
+.service-title{font-size:18px;font-weight:400;color:var(--ink);margin-bottom:12px;line-height:1.2}
+.service-desc{font-size:14px;line-height:1.7;color:var(--ink2)}
+
+/* CTA SECTION */
+.cta-section{background:var(--brown);padding:80px 48px}
+.cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.cta-title{font-size:clamp(28px,3.5vw,52px);font-weight:400;color:#F2EAE1;line-height:1.1;letter-spacing:-.015em}
+.cta-right{}
+.cta-text{font-size:15px;line-height:1.7;color:rgba(242,234,225,.65);margin-bottom:32px}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:#F2EAE1;color:var(--brown);border:none;border-radius:100px;padding:14px 14px 14px 24px;font-size:14px;font-weight:400;cursor:pointer;transition:opacity 0.2s var(--ease),transform 0.15s var(--ease)}
+.btn-primary:hover{opacity:.88}.btn-primary:active{transform:scale(0.97)}
+.btn-primary-icon{width:28px;height:28px;border-radius:50%;background:rgba(92,58,46,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.22s var(--ease)}
+.btn-primary:hover .btn-primary-icon{transform:translate(2px,-1px)}
+.btn-primary-icon svg{width:12px;height:12px;stroke:var(--brown);fill:none;stroke-width:2}
+
+/* FOOTER */
+footer{background:var(--ink);padding:56px 48px 32px}
+.footer-top{display:grid;grid-template-columns:2.2fr 1fr 1fr;gap:64px;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand{font-size:24px;font-weight:400;color:#fff;margin-bottom:12px;letter-spacing:-.02em}
+.footer-brand em{font-style:normal;opacity:.38}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.36);line-height:1.65;max-width:260px}
+.footer-col-title{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:18px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.48);transition:color 0.2s var(--ease)}
+.footer-links a:hover{color:#fff}
+.footer-links li:not(:has(a)){font-size:13px;color:rgba(255,255,255,.28)}
+.footer-bottom{display:flex;justify-content:space-between}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.04em}
+
+.r{opacity:0;transform:translateY(24px) scale(0.97);filter:blur(4px);transition:opacity 0.72s var(--ease),transform 0.72s var(--ease),filter 0.72s var(--ease)}
+.r.on{opacity:1;transform:none;filter:none}
+@media(prefers-reduced-motion:reduce){.r{transition:opacity 0.3s ease;transform:none;filter:none}}
+
+@media(max-width:900px){
+  nav{top:12px;left:12px;right:12px}
+  .nav-phone,.nav-cta,.nav-back{display:none}.hamburger{display:flex}
+  .page-hero{padding:96px 24px 56px}.page-hero-grid{grid-template-columns:1fr;gap:24px}
+  .content-section{padding:48px 24px}.content-grid{grid-template-columns:1fr;gap:24px}
+  .list-section{padding:48px 24px}.services-grid{grid-template-columns:1fr;gap:0}
+  .cta-section{padding:56px 24px}.cta-inner{grid-template-columns:1fr;gap:32px}
+  footer{padding:48px 24px 28px}.footer-top{grid-template-columns:1fr;gap:28px}
+  .footer-bottom{flex-direction:column;gap:8px}
+}
+</style>
+</head>
+<body>
+<div class="mmenu" id="mm">
+  <button class="mmenu-close" onclick="cm()">Închide ×</button>
+  <a href="index.html">Acasă</a>
+  <a href="index.html#practice">Arii de practică</a>
+  <a href="index.html#how">Cum vă ajutăm</a>
+  <a href="index.html#testimonials">Testimoniale</a>
+  <a href="index.html#contact">Contact</a>
+</div>
+
+<nav id="nav">
+  <div class="nav-brand">
+    <svg class="nav-icon" viewBox="0 0 30 30" fill="none">
+      <path d="M15 3L28 24H2Z" stroke="#1A1917" stroke-width="1.4" fill="none"/>
+      <path d="M15 10L23 24H7Z" stroke="#1A1917" stroke-width="1" fill="none" opacity=".3"/>
+      <circle cx="15" cy="15" r="2.2" stroke="#1A1917" stroke-width="1.2" fill="none"/>
+    </svg>
+    <span class="nav-name">Alexandru Ionescu</span>
+  </div>
+  <div class="nav-right">
+    <a href="index.html#practice" class="nav-back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Înapoi
+    </a>
+    <button class="nav-phone">
+      <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1-.24 1.1.4 2.3.6 3.6.6.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.6 21 3 13.4 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.1.32.03.67-.18.93L6.6 10.8z" fill="#fff"/></svg>
+      0721 234 567
+    </button>
+    <a href="index.html#contact" class="nav-cta">
+      Consultație gratuită
+      <div class="nav-cta-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+    <button class="hamburger" id="hbg" onclick="tm()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-grid">
+    <div class="r">
+      <span class="eyebrow"><span class="eyebrow-dot"></span>Arie de practică</span>
+      <h1 class="page-hero-title">Drept<br>Civil</h1>
+      <div class="page-hero-meta">
+        <div class="page-hero-meta-line"></div>
+        <span class="page-hero-meta-text">22 ani de experiență · Baroul București</span>
+      </div>
+    </div>
+    <div class="page-hero-right r" style="transition-delay:.1s">
+      <p class="page-hero-intro">Dreptul civil reglementează relațiile patrimoniale și personale dintre persoanele fizice și juridice. De la un contract contestat până la o moștenire disputată — fiecare cauză civilă implică drepturi reale ale unor oameni reali.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="content-grid r">
+    <div class="content-label">Abordarea noastră</div>
+    <div class="content-body">
+      <h3>Dreptul civil apărat cu rigoare și experiență</h3>
+      <p>Cu peste 22 de ani de experiență în sistemul juridic românesc — inclusiv 10 ani ca judecător —, înțelegem cum gândesc instanțele. Această perspectivă din interior ne oferă un avantaj real în construirea strategiei de apărare sau de reprezentare a intereselor dumneavoastră.</p>
+      <p>Fiecare dosar civil este unic. Nu aplicăm soluții standard. Analizăm situația concretă, identificăm cel mai eficient traseu juridic și vă reprezentăm interesele cu consecvență — de la prima consultație până la executarea hotărârii judecătorești.</p>
+    </div>
+  </div>
+</section>
+
+<section class="list-section">
+  <h2 class="r">Ce includem în practica<br>de drept civil</h2>
+  <div class="services-grid">
+    <div class="service-card r">
+      <span class="service-num">01</span>
+      <div class="service-title">Contracte și obligații</div>
+      <p class="service-desc">Redactare, negociere, interpretare și contestare de contracte civile. Litigii privind neexecutarea obligațiilor contractuale, penalități și daune.</p>
+    </div>
+    <div class="service-card r" style="transition-delay:.06s">
+      <span class="service-num">02</span>
+      <div class="service-title">Succesiuni și moșteniri</div>
+      <p class="service-desc">Partajul bunurilor succesorale, contestarea testamentelor, reductiunea liberalităților excesive, acțiuni în petiție de ereditate și raport de donații.</p>
+    </div>
+    <div class="service-card r" style="transition-delay:.12s">
+      <span class="service-num">03</span>
+      <div class="service-title">Drepturi reale și proprietate</div>
+      <p class="service-desc">Acțiuni în revendicare, uzucapiune, grănițuire, servituți și dezmembrăminte ale dreptului de proprietate. Litigii privind cartea funciară.</p>
+    </div>
+    <div class="service-card r" style="transition-delay:.06s">
+      <span class="service-num">04</span>
+      <div class="service-title">Răspundere civilă delictuală</div>
+      <p class="service-desc">Recuperarea daunelor produse prin fapte ilicite — accidente de circulație, prejudicii medicale, daune morale, răspunderea comitentului pentru prepus.</p>
+    </div>
+    <div class="service-card r" style="transition-delay:.12s">
+      <span class="service-num">05</span>
+      <div class="service-title">Dreptul familiei și minori</div>
+      <p class="service-desc">Divorț, împărțire de bunuri comune, stabilirea locuinței minorului, pensie de întreținere, exercitarea autorității părintești, adopție.</p>
+    </div>
+    <div class="service-card r" style="transition-delay:.18s">
+      <span class="service-num">06</span>
+      <div class="service-title">Executare silită și recuperare creanțe</div>
+      <p class="service-desc">Contestații la executare, popriri, urmărire imobiliară și mobiliară. Strategii eficiente de recuperare a creanțelor civile neachitate.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="content-grid r">
+    <div class="content-label">De ce să ne alegeți</div>
+    <div class="content-body">
+      <h3>Perspectiva judecătorului în sala de judecată</h3>
+      <p>Cei 10 ani petrecuți ca judecător au format o perspectivă aparte asupra modului în care instanțele evaluează probele, argumentele juridice și conduita procesuală a părților. Știm ce contează cu adevărat în dosarul dumneavoastră.</p>
+      <p>Abordăm fiecare cauză civilă pregătindu-ne ca și cum ar urma să ajungă în fața celei mai exigente instanțe. Documentarea riguroasă a faptelor, argumentele juridice solide și anticiparea pozițiilor adverse sunt standardul nostru — nu excepția.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="r">
+      <span class="eyebrow" style="border-color:rgba(242,234,225,.2);color:rgba(242,234,225,.5)"><span class="eyebrow-dot" style="background:rgba(242,234,225,.3)"></span>Prima consultație gratuită</span>
+      <h2 class="cta-title">Drepturile dvs. civile merită o apărare serioasă.</h2>
+    </div>
+    <div class="cta-right r" style="transition-delay:.1s">
+      <p class="cta-text">Descrieți-ne situația și vă vom oferi o evaluare clară a opțiunilor disponibile. Răspundem în maximum 24 de ore.</p>
+      <a href="index.html#contact" class="btn-primary">
+        Solicită consultație
+        <div class="btn-primary-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Alexandru <em>Ionescu</em></div>
+      <p class="footer-tagline">Cabinet de avocatură cu sediul în București. 22 de ani de experiență în drept civil, penal și comercial.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigare</div>
+      <ul class="footer-links">
+        <li><a href="index.html#practice">Arii de practică</a></li>
+        <li><a href="index.html#how">Cum vă ajutăm</a></li>
+        <li><a href="index.html#testimonials">Testimoniale</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:+40721234567">+40 721 234 567</a></li>
+        <li><a href="mailto:contact@ionescu-avocat.ro">contact@ionescu-avocat.ro</a></li>
+        <li>Str. Aviatorilor 12, București</li>
+        <li>Lun–Vin: 09:00–18:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Cabinet Avocat Alexandru Ionescu. Toate drepturile rezervate.</p>
+    <p>Baroul București &nbsp;·&nbsp; Nr. înreg. 4728</p>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+const mm=document.getElementById('mm'),hbg=document.getElementById('hbg');
+function tm(){const o=mm.classList.contains('open');mm.classList.toggle('open');hbg.classList.toggle('o');document.body.style.overflow=o?'':'hidden'}
+function cm(){mm.classList.remove('open');hbg.classList.remove('o');document.body.style.overflow=''}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')})},{threshold:.08});
+document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
